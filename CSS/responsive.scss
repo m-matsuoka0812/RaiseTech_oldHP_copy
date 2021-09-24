@@ -1,0 +1,348 @@
+@charset "UTF-8";
+
+
+$first: 1290px; //catchphrase消去
+$second: 1260px; //menu余白変更
+$third: 1200px; //ハンバーガーメニュー
+$fourth: 1035px; //main変更
+$fifth: 767px; //スマホ
+
+
+@mixin catchphrase {
+    @media (max-width: ($first)) {
+        @content;
+    }
+}
+
+@mixin sub-btn {
+    @media (max-width: ($second)) {
+        @content;
+    }
+}
+
+@mixin hamburger {
+    @media (max-width: ($third)) {
+        @content;
+    }
+}
+
+@mixin maintop {
+    @media (max-width: ($fourth)) {
+        @content;
+    }
+}
+
+@mixin smart-phone {
+    @media (max-width: ($fifth)) {
+        @content;
+    }
+}
+
+//　responsive1
+@media (max-width: 1265px){
+    .catchphrase {
+        display: none;
+    }
+}
+
+.sub-btn {
+    @include sub-btn{
+        padding: 0px 10px;
+    };  
+}
+
+.last-btn {
+    @include sub-btn{
+        padding: 0px 10px;
+    };
+}
+
+.header {
+    @include hamburger {
+        height: 50px;
+    };
+}
+
+.main {
+    @include hamburger {
+        padding-top: 50px;
+    }
+}
+
+.layer1 {
+    padding-top: 80px;
+    @include hamburger {
+        padding-top: 50px;
+    };
+}
+
+.main-logo img {
+    height: 33px;
+    @include hamburger {
+        height: 30px;
+    };
+}
+
+.right {
+    @include hamburger {
+        display: none;
+    };
+}
+
+//　ハンバーガーメニュー
+
+.ham-btn {
+    display: none;
+    position: relative;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    @include hamburger {
+        display: block;
+    };
+
+// *linestyle
+    &__line {
+        position: absolute;
+        left: 14px;
+        top: 10px;
+        background-color: #2498b3; //*linecolor
+        width: 23px; //*長さ
+        height: 2px; //*太さ
+        transition: all 0.3s; //*動きをつけるため
+
+// *個々のライン位置
+        &:nth-of-type(1){
+            top: 15px;
+        }
+        &:nth-of-type(2){
+            top: 24px;
+        }
+        &:nth-of-type(3){
+            top: 33px;
+        }
+    }
+    &.active {
+        background-color: #2498b3;
+        .ham-btn__line {
+            transition: all 0.3s;
+            &:nth-of-type(1){
+                transform: rotate(45deg);
+                background-color: #fff;
+                top: 24px;
+            }
+            &:nth-of-type(2){
+                width: 0px;
+            }
+            &:nth-of-type(3){
+                transform: rotate(-45deg);
+                background-color: #fff;
+                top: 24px;
+            }
+        }
+    }
+}
+
+// ハンバーガーメニュー（メニュー・サブメニュー）
+
+.h-nav {
+    display: none; 
+    position: absolute;
+    top: 50px;
+    width: 100%;
+    z-index: 1500; //追加
+    /*@include hambuger{
+        display: block;
+    };*/
+    .close {
+        position: relative;
+        /*>a::after {
+            display: block;
+            position: absolute;
+            top: 50%;
+            right: 24px;
+            content: "";
+            width: 2px;
+            height: 24px;
+            background-color: #121212;
+            margin-top: -11px;
+        }*/
+    }
+}
+    .h-menu {
+       background-color: #fff;
+       font-size: 1.6rem;
+       font-weight: 600;
+        a {
+            padding: 11.5px 0 11.5px 10px;
+            color: #131d34;
+            position: relative; //追記
+            text-decoration: none;//追記
+            display: block;
+        &:hover {
+            background-color: #f3fafb;
+        }
+        /*&::before {
+            display: block;
+            position: absolute;
+            top: 50%; //.h-menu直下のaタグの真ん中に揃える
+            right: 13px; //右から13pxに配置
+            content: ""; //文字を入れますよ宣言（今回は空白）
+            width: 24px; //線の長さ
+            height: 2px; //線の太さ
+            background-color: #121212; //colorプロパティでは色が反映されません
+        }*/
+        }
+    }
+    .h-submenu {
+        display: none;
+        li {
+            font-weight: 400;
+            a {
+                padding: 11.5px 0 11.5px 25px;
+                display: block;
+                &:hover {
+                    background-color: #f3fafb;               
+                }
+            }
+        }
+    }
+    .h-smenu {
+        background-color: #fff;
+        font-size: 1.6rem;
+        font-weight: 600;
+        >a {
+            padding: 11.5px 0 11.5px 10px;
+            color: #131d34;
+            text-decoration: none;//追記
+            display: block;
+            &:hover {
+                background-color: #f3fafb;
+            }
+        }
+    }
+
+// mainbottom
+
+.header {
+    @include maintop {
+        height: 50px;
+    };
+}
+
+/*.bottom-contents {
+    display: flex;
+    justify-content: center;
+    margin-top: -200px;
+    @include maintop {
+        margin-left: 10px;
+        margin-right: 10px;
+    };
+    .content {
+        width: 229px;
+        text-align: center;
+        margin: 0 50px;
+        z-index: 700;
+        @include maintop {
+            width: 30%;
+            margin: 0 2%;
+        };
+        .icon {
+            width: 230px;
+            height: 230px;
+            border: solid 6px black;
+            border-radius: 50%;
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            @include maintop {
+                margin: auto;
+            };
+        }
+    }
+}*/
+
+// スマホ
+
+.header {
+    @include smart-phone{
+        height: 50px;
+    };
+}
+/*
+.maintop {
+    @include smart-phone {
+        height: 300px;
+        padding-bottom: 320px;
+        background-position: center -25px;
+             
+    };
+}
+.layer1 {
+    @include smart-phone {
+        
+        -webkit-box-align: end;
+        align-items: flex-end;
+        background-position: center -30px;       
+    };
+}
+.layer2 {
+    @include smart-phone {
+        
+        background-size: cover;
+        background-position: center -25px;      
+    };
+}
+.stackimg {
+    background-size: cover; 
+    @include smart-phone {
+
+    };
+}*/
+
+.innerbox {
+    @include smart-phone {
+        width: 100%;
+        max-width: 100%;
+        padding: 18px 25px 15px 25px;
+        border-radius: 0px;
+        padding-bottom: 60px;
+    };
+}
+.innerlogo {
+    @include smart-phone {
+        display: none;
+    };
+}
+.innerlogo p {
+    @include smart-phone {
+        margin: .5em 0;
+        font-size: 1.3rem;
+        line-height: 1.5;
+    };
+}
+.innerbtn a {
+    @include smart-phone {
+        font-size: 1.6rem;
+        padding: 6px 12px;
+        margin-top: 15px;
+        margin-bottom: 8px;
+    };
+}
+
+.bottom-contents {
+    @include smart-phone {
+        flex-direction: column;
+        margin-top: 0;
+        padding-top: 0;
+        align-items: flex-start;
+    };
+    .content {
+        @include smart-phone {
+            width: 100%;
+            margin: 10px 0 20px;
+        };
+    }
+}
+
